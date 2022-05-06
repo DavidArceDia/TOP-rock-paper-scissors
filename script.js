@@ -1,8 +1,8 @@
-  function RandomNumber (min, max) {
+function randomNumber(min, max) {
   return Math.floor(Math.random()*(max-min+1))+min;
 }
 
-function ComputerPlay(computerNumChoice){
+function computerPlay(computerNumChoice){
   switch (computerNumChoice){
     case 1:
       return "Rock";
@@ -16,7 +16,7 @@ function ComputerPlay(computerNumChoice){
   }
 }
 
-function PlayGame (computerSelection, playerSelection){
+function playGame(computerSelection, playerSelection){
   if(computerSelection === playerSelection){
     return "Tie game";
   }
@@ -26,34 +26,54 @@ function PlayGame (computerSelection, playerSelection){
   else if(computerSelection === "Paper" && playerSelection === "Rock"){
     return "Computer wins";
   }
-  else if(computerSelection === "Rock" && (playerSelection === "Scissors")){
+  else if(computerSelection === "Rock" && playerSelection === "Scissors"){
     return "Computer wins";
   }
   else {
-    return "Player Wins"
+    return "Player wins";
   }
+}
+
+function game(minChoice, maxChoice) {
+
+  let computerWinCount = 0;
+  let playerWinCount = 0;
+
+  for (let i = 0; i < 5; i++){
+    
+    let computerNumChoice = randomNumber(minChoice, maxChoice);   //This Produces the random computer # choice
+
+    let computerSelection = computerPlay(computerNumChoice);      //This produces the final "Rock Paper Scissor" choice
+    
+    let playerSelection = prompt("Rock, Paper or Scissors?");     //Prompts user for their selection
+
+    if(playGame(computerSelection, playerSelection) === "Computer wins"){
+      computerWinCount++;
+      console.log("Computer Wins");
+      console.log(computerSelection, playerSelection);
+    }
+    else if(playGame(computerSelection, playerSelection) === "Player wins"){
+      playerWinCount++;
+      console.log("Player Wins");
+      console.log(computerSelection, playerSelection);
+    }
+    else if(playGame(computerSelection, playerSelection) === "Tie game"){
+      --i;
+      console.log("Tie");
+      console.log(computerSelection, playerSelection);
+    }
+    console.log(i);
+  }
+
+  return (playerWinCount > computerWinCount) ? "Player Wins!" : "Computer Wins!"
 }
 
 
 minChoice = 1;    //These two choices are the upper and 
 maxChoice = 3;    //lower bounds for the computer's Number Choice
 
-let computerNumChoice = RandomNumber(minChoice, maxChoice);   //This Produces the random computer # choice
+console.log(game(minChoice, maxChoice));
 
-let computerSelection = ComputerPlay(computerNumChoice);      //This produces the final "Rock Paper Scissor" choice
-
-let playerSelection = prompt("Rock, Paper or Scissors?");     //Prompts user for their selection
-
-if(playerSelection !== "Rock" && playerSelection !== "Paper" && playerSelection !== "Scissors"){  //Checks if the user spelled
-  playerSelection = prompt("Please type your choice exactly: Rock Paper or Scissors?")            //their choice properly
-}
-
-
-console.log(computerSelection, playerSelection);
-
-let result = PlayGame(computerSelection, playerSelection);
-
-console.log(result);  
 
 
 
