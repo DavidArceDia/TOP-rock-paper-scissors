@@ -1,11 +1,12 @@
 /**
  * Returns a random number within max and min.
+ * I used default parameters to simplify the functions.
  * 
- * @param {Number} min minimum value.
- * @param {Number} max maximum value.
+ * @param {Number} min minimum value, defults to 1.
+ * @param {Number} max maximum value defaults to 3.
  * @returns {Number} random number within max and min.
  */
-function randomNumber(min, max) {
+function randomNumber(min=1, max=3) {
   return Math.floor(Math.random()*(max-min+1))+min;
 }
 
@@ -54,18 +55,16 @@ function playGame(computerSelection, playerSelection){
  * Plays 5 rounds of playGame, each with a different computerSelection - all nessisary
  * computerSelection functions are called inside.
  * 
- * @param {Number} min minimum value (for randomNumber function).
- * @param {Number} max maximum value (for randomNumber function).
  * @returns {String} the winner of 5 matches, ties not included.
  */
-function game(minChoice, maxChoice) {
+function game() {
 
   let computerWinCount = 0;
   let playerWinCount = 0;
 
   for (let i = 0; i < 5; i++){
     
-    let computerNumChoice = randomNumber(minChoice, maxChoice);   //This Produces the random computer # choice
+    let computerNumChoice = randomNumber();   //This Produces the random computer # choice
     let computerSelection = computerPlay(computerNumChoice);      //This produces the final "Rock Paper Scissor" choice
     
     let playerSelection = prompt("Rock, Paper or Scissors?");     //Prompts user for their selection
@@ -87,10 +86,7 @@ function game(minChoice, maxChoice) {
   return (playerWinCount > computerWinCount) ? "Player Wins!" : "Computer Wins!";
 }
 
-const MIN_CHOICE = 1;    //These two choices are the upper and 
-const MAX_CHOICE = 3;    //lower bounds for the computer's Number Choice
-
-console.log(game(MIN_CHOICE, MAX_CHOICE));
+console.log(game());
 
 
 
